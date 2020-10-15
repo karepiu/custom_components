@@ -1,0 +1,10 @@
+{
+  "domain": "lasko_bt_fan_w9560",
+  "name": "Lasko BT Fan W9560",
+  "documentation": "",
+  "dependencies": [],
+  "codeowners": ["@GlowingFish"],
+  "requirements": [
+    "pygatt[GATTTOOL]==4.0.5"
+  ]
+}
