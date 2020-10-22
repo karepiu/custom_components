@@ -154,8 +154,15 @@ class LaskoFanDevice:
             _LOGGER.info("Read UUID {}: {}".format(uuid, binascii.hexlify(self.device.char_read(uuid))))
 
     def send_command(self,command):
-        self.device.char_write('0000fff2-0000-1000-8000-00805f9b34fb',bytearray.fromhex(command))
-        self.state_refresh()
+        if self.connected == False:
+            self.connect()
+        try:
+            self.device.char_write('0000fff2-0000-1000-8000-00805f9b34fb',bytearray.fromhex(command))
+            self.state_refresh()
+        except (BLEError, NotConnectedError, NotificationTimeout):
+            self.connect()
+            self.state_refresh()
+            
 
     def set_speed(self, speed):
         if speed == 'low':
